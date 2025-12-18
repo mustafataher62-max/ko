@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر المهندس فون - الاحترافي</title>
+    <title>متجر المهندس فون - ليبيا</title>
     <style>
         :root {
             --bg-body: #0f172a; --card-bg: #1e293b; --accent: #a2d149;
-            --text: #f8fafc; --danger: #ef4444; --whatsapp: #25d366; --locked: #64748b;
+            --text: #f8fafc; --danger: #ef4444; --whatsapp: #25d366;
         }
 
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg-body); color: var(--text); margin: 0; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg-body); color: var(--text); margin: 0; line-height: 1.6; }
 
         /* Navigation */
         nav {
@@ -25,31 +25,33 @@
         .page.active { display: block; }
 
         /* Hero Section */
-        .hero {
-            text-align: center; padding: 120px 20px;
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+        .hero { 
+            text-align: center; padding: 100px 20px; 
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80');
             background-size: cover; background-position: center; border-radius: 30px; border: 1px solid rgba(162, 209, 73, 0.3);
         }
-        .hero h1 { font-size: 3.5em; margin-bottom: 10px; color: var(--accent); text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-        .hero p { font-size: 1.3em; color: #cbd5e1; }
+        .hero h1 { font-size: 3em; color: var(--accent); margin-bottom: 15px; }
 
-        /* Admin & Login Style */
-        .login-screen { text-align: center; padding: 50px; background: var(--card-bg); border-radius: 20px; max-width: 400px; margin: 50px auto; }
+        /* Products Grid */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
+        .product-card { 
+            background: var(--card-bg); border-radius: 20px; padding: 25px; text-align: center; 
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; 
+        }
+        .product-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .price-usd { font-size: 1.8em; color: var(--accent); font-weight: bold; margin-bottom: 5px; }
+        .price-lyd { color: #94a3b8; font-size: 1em; margin-bottom: 15px; border-top: 1px solid #334155; padding-top: 5px; }
+
+        /* Admin & Forms */
         .admin-box { background: var(--card-bg); padding: 25px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #334155; }
-
-        input, select {
+        input, select { 
             width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
         }
 
         .btn { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
-        .btn-buy { background: var(--whatsapp); color: white; margin-top: 15px; font-size: 1.1em; }
+        .btn-buy { background: var(--whatsapp); color: white; font-size: 1.1em; }
         .btn-save { background: var(--accent); color: #000; }
-        .btn-logout { background: var(--danger); color: white; width: auto; padding: 8px 20px; margin-top: 10px; }
-
-        /* Products */
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
-        .product-card { background: var(--card-bg); border-radius: 20px; padding: 25px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
-        .price-tag { font-size: 1.6em; color: var(--accent); font-weight: bold; margin: 10px 0; }
+        .btn-logout { background: var(--danger); color: white; width: auto; padding: 8px 20px; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
@@ -57,7 +59,7 @@
 <body>
 
 <nav>
-    <div style="font-size: 1.5em; font-weight: bold; color: var(--accent);">المهندس فون</div>
+    <div style="font-size: 1.6em; font-weight: bold; color: var(--accent);">المهندس فون</div>
     <div class="nav-links">
         <button onclick="showPage('home')" id="nav-home" class="active">🏠 الرئيسية</button>
         <button onclick="showPage('phones')">📱 الهواتف</button>
@@ -67,17 +69,27 @@
 </nav>
 
 <div class="container">
-
+    
     <div id="home" class="page active">
         <div class="hero">
             <h1>مرحباً بكم في متجر المهندس فون</h1>
-            <p>وجهتكم الأولى لأحدث الهواتف الذكية والإكسسوارات الأصلية.</p>
-            <button class="btn btn-save" style="width: auto; padding: 15px 40px; margin-top: 20px;" onclick="showPage('phones')">تصفح المنتجات الآن</button>
+            <p>أفضل الأسعار وأحدث الموديلات في السوق الليبي</p>
+            <button class="btn btn-save" style="width: auto; padding: 15px 40px; margin-top: 20px;" onclick="showPage('phones')">ابدأ التسوق</button>
         </div>
     </div>
 
+    <div id="phones" class="page">
+        <h2 style="border-right: 4px solid var(--accent); padding-right: 15px; margin-bottom: 30px;">📱 قائمة الهواتف الذكية</h2>
+        <div class="products-grid" id="phones-list"></div>
+    </div>
+
+    <div id="acc" class="page">
+        <h2 style="border-right: 4px solid var(--accent); padding-right: 15px; margin-bottom: 30px;">🎧 الإكسسوارات والملحقات</h2>
+        <div class="products-grid" id="acc-list"></div>
+    </div>
+
     <div id="admin-login" class="page">
-        <div class="login-screen">
+        <div style="max-width: 400px; margin: 100px auto; background: var(--card-bg); padding: 40px; border-radius: 20px; text-align: center;">
             <h2>🔑 دخول المسؤول</h2>
             <input type="password" id="admin-pass" placeholder="كلمة المرور">
             <button class="btn btn-save" onclick="verifyAdmin()">دخول</button>
@@ -85,50 +97,64 @@
     </div>
 
     <div id="admin-panel" class="page">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
             <h2>🛠️ إدارة المتجر</h2>
-            <button class="btn btn-logout" onclick="logoutAdmin()">خروج</button>
+            <button class="btn btn-logout" onclick="logoutAdmin()">خروج آمن</button>
         </div>
 
         <div class="admin-box">
-            <h3>⚙️ الإعدادات العامة</h3>
-            <label>رقم واتساب المتجر (بدون + أو 00):</label>
-            <input type="text" id="store-phone" placeholder="مثال: 9665xxxxxxxx" onchange="saveSettings()">
+            <h3>📞 إعدادات التواصل</h3>
+            <label>رقم الواتساب (مثال: 2189xxxxxxx):</label>
+            <input type="text" id="store-phone" placeholder="أدخل الرقم هنا" onchange="saveSettings()">
         </div>
 
         <div class="admin-box">
-            <h3>➕ إضافة منتج جديد</h3>
-            <input type="text" id="p-name" placeholder="اسم الجهاز / الملحق">
-            <input type="number" id="p-price" placeholder="السعر ($)">
+            <h3>➕ إضافة منتج جديد (مؤقت للعرض الحالي)</h3>
+            <input type="text" id="p-name" placeholder="اسم المنتج">
+            <input type="number" id="p-price" placeholder="السعر بالدولار ($)">
             <select id="p-type">
-                <option value="phone">هاتف ذكي</option>
+                <option value="phone">هاتف</option>
                 <option value="acc">إكسسوار</option>
             </select>
             <button class="btn btn-save" onclick="saveProduct()">إضافة للمتجر</button>
         </div>
 
-        <h3>📦 قائمة البضاعة الحالية</h3>
+        <h3>📦 البضاعة المعروضة</h3>
         <div id="admin-inventory-list"></div>
     </div>
-
-    <div id="phones" class="page">
-        <h2 style="border-right: 4px solid var(--accent); padding-right: 15px;">📱 أحدث الهواتف الذكية</h2>
-        <div class="products-grid" id="phones-list"></div>
-    </div>
-
-    <div id="acc" class="page">
-        <h2 style="border-right: 4px solid var(--accent); padding-right: 15px;">🎧 إكسسوارات ومميزات</h2>
-        <div class="products-grid" id="acc-list"></div>
-    </div>
-
 </div>
 
 <script>
-    const ADMIN_PASSWORD = "admin123"; // كلمة المرور
+    const ADMIN_PASSWORD = "admin123";
+    const EXCHANGE_RATE = 8.28; // سعر الصرف في ليبيا
     let isAdminAuthenticated = false;
 
-    let products = JSON.parse(localStorage.getItem('engPhoneData')) || [];
-    let storePhone = localStorage.getItem('engStorePhone') || "";
+    // المنتجات الـ 20 الافتراضية
+    const defaultProducts = [
+        { id: 1, type: 'phone', name: 'iPhone 15 Pro Max (256GB)', price: 1199 },
+        { id: 2, type: 'phone', name: 'iPhone 15 Pro (128GB)', price: 999 },
+        { id: 3, type: 'phone', name: 'iPhone 14 (128GB)', price: 699 },
+        { id: 4, type: 'phone', name: 'Samsung Galaxy S24 Ultra', price: 1250 },
+        { id: 5, type: 'phone', name: 'Samsung S23 FE', price: 599 },
+        { id: 6, type: 'phone', name: 'Samsung A54 5G', price: 350 },
+        { id: 7, type: 'phone', name: 'Redmi Note 13 Pro+', price: 420 },
+        { id: 8, type: 'phone', name: 'Infinix Note 30 VIP', price: 290 },
+        { id: 9, type: 'phone', name: 'Honor 90 (512GB)', price: 450 },
+        { id: 10, type: 'phone', name: 'Huawei Nova 11i', price: 240 },
+        { id: 11, type: 'acc', name: 'AirPods Pro 2', price: 249 },
+        { id: 12, type: 'acc', name: 'Apple Watch Series 9', price: 399 },
+        { id: 13, type: 'acc', name: 'Samsung Buds 2 Pro', price: 180 },
+        { id: 14, type: 'acc', name: 'شاحن Apple الأصلي 20W', price: 25 },
+        { id: 15, type: 'acc', name: 'شاحن Samsung الأصلي 45W', price: 35 },
+        { id: 16, type: 'acc', name: 'Anker PowerCore 20K', price: 55 },
+        { id: 17, type: 'acc', name: 'سماعة P9 Wireless', price: 15 },
+        { id: 18, type: 'acc', name: 'Ultra Smart Watch Copy', price: 45 },
+        { id: 19, type: 'acc', name: 'لاصقة حماية سيراميك', price: 10 },
+        { id: 20, type: 'acc', name: 'كفر حماية أصلي', price: 20 }
+    ];
+
+    let products = JSON.parse(localStorage.getItem('engPhoneData')) || defaultProducts;
+    let storePhone = localStorage.getItem('engStorePhone') || "218"; 
 
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -148,7 +174,7 @@
             document.getElementById('nav-admin').innerText = "🔓 الإدارة";
             showPage('admin-panel');
         } else {
-            alert("كلمة المرور غير صحيحة");
+            alert("خطأ في كلمة المرور");
         }
         document.getElementById('admin-pass').value = "";
     }
@@ -168,54 +194,49 @@
         const name = document.getElementById('p-name').value;
         const price = document.getElementById('p-price').value;
         const type = document.getElementById('p-type').value;
-        if(!name || !price) return alert("يرجى ملء البيانات");
-
-        products.push({ id: Date.now(), name, price, type });
+        if(!name || !price) return alert("أكمل البيانات");
+        products.push({ id: Date.now(), name, price: parseInt(price), type });
         localStorage.setItem('engPhoneData', JSON.stringify(products));
         renderAll();
-        document.getElementById('p-name').value = '';
-        document.getElementById('p-price').value = '';
     }
 
     function deleteProduct(id) {
-        if(confirm("حذف المنتج؟")) {
-            products = products.filter(p => p.id !== id);
-            localStorage.setItem('engPhoneData', JSON.stringify(products));
-            renderAll();
-        }
+        products = products.filter(p => p.id !== id);
+        localStorage.setItem('engPhoneData', JSON.stringify(products));
+        renderAll();
     }
 
     function sendOrder(name, price) {
-        if(!storePhone) return alert("يرجى ضبط رقم الواتساب في الإدارة");
-        const msg = `مرحباً متجر المهندس فون 👋%0Aأود طلب: ${name}%0Aالسعر: ${price}$`;
+        const lyPrice = (price * EXCHANGE_RATE).toFixed(2);
+        const msg = `مرحباً متجر المهندس فون 👋%0Aأود طلب: ${name}%0Aالسعر بالدولار: ${price}$%0Aالسعر بالدينار: ${lyPrice} د.ل`;
         window.open(`https://wa.me/${storePhone}?text=${msg}`, '_blank');
     }
 
     function renderAll() {
-        document.getElementById('store-phone').value = storePhone;
+        const pList = document.getElementById('phones-list');
+        const aList = document.getElementById('acc-list');
+        const admInv = document.getElementById('admin-inventory-list');
 
-        document.getElementById('phones-list').innerHTML = products.filter(p => p.type === 'phone').map(p => `
+        const renderItem = (p) => `
             <div class="product-card">
                 <h3>${p.name}</h3>
-                <div class="price-tag">$${p.price}</div>
+                <div class="price-usd">$${p.price}</div>
+                <div class="price-lyd">يعادل: ${(p.price * EXCHANGE_RATE).toFixed(2)} د.ل</div>
                 <button class="btn btn-buy" onclick="sendOrder('${p.name}', '${p.price}')">اطلب عبر واتساب ✅</button>
-            </div>
-        `).join('') || "<p>لا توجد هواتف حالياً</p>";
+            </div>`;
 
-        document.getElementById('acc-list').innerHTML = products.filter(p => p.type === 'acc').map(p => `
-            <div class="product-card">
-                <h3>${p.name}</h3>
-                <div class="price-tag">$${p.price}</div>
-                <button class="btn btn-buy" onclick="sendOrder('${p.name}', '${p.price}')">اطلب عبر واتساب ✅</button>
-            </div>
-        `).join('') || "<p>لا توجد إكسسوارات حالياً</p>";
+        pList.innerHTML = products.filter(p => p.type === 'phone').map(renderItem).join('');
+        aList.innerHTML = products.filter(p => p.type === 'acc').map(renderItem).join('');
 
-        document.getElementById('admin-inventory-list').innerHTML = products.map(p => `
-            <div style="background:#0f172a; padding:15px; margin-bottom:10px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
-                <span>${p.name} (${p.type === 'phone' ? 'هاتف' : 'إكسسوار'})</span>
-                <button onclick="deleteProduct(${p.id})" style="color:var(--danger); background:none; border:none; cursor:pointer; font-weight:bold;">حذف</button>
-            </div>
-        `).join('');
+        if(admInv) {
+            document.getElementById('store-phone').value = storePhone;
+            admInv.innerHTML = products.map(p => `
+                <div style="background:#0f172a; padding:15px; margin-bottom:8px; border-radius:10px; display:flex; justify-content:space-between;">
+                    <span>${p.name} ($${p.price})</span>
+                    <button onclick="deleteProduct(${p.id})" style="color:var(--danger); background:none; border:none; cursor:pointer;">حذف</button>
+                </div>
+            `).join('');
+        }
     }
 
     renderAll();
