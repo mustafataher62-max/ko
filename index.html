@@ -2,162 +2,223 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>منظومة الأرشفة الإلكترونية</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر المهندس فون - الاحترافي</title>
     <style>
-        body {
-            font-family: Tahoma, Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-            text-align: right;
+        :root {
+            --bg-body: #0f172a; --card-bg: #1e293b; --accent: #a2d149;
+            --text: #f8fafc; --danger: #ef4444; --whatsapp: #25d366; --locked: #64748b;
         }
-        .container {
-            max-width: 600px;
-            margin: 40px auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg-body); color: var(--text); margin: 0; }
+
+        /* Navigation */
+        nav {
+            background: var(--card-bg); padding: 15px 5%; display: flex; justify-content: space-between;
+            align-items: center; border-bottom: 2px solid var(--accent); position: sticky; top: 0; z-index: 1000;
         }
-        h2 {
-            color: #2c3e50;
-            border-bottom: 2px solid #2ecc71;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+        .nav-links button { background: none; border: none; color: white; margin: 0 10px; cursor: pointer; transition: 0.3s; font-size: 1.1em; }
+        .nav-links button.active { color: var(--accent); font-weight: bold; border-bottom: 2px solid var(--accent); }
+
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .page { display: none; animation: fadeIn 0.4s ease; }
+        .page.active { display: block; }
+
+        /* Hero Section */
+        .hero {
+            text-align: center; padding: 120px 20px;
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');
+            background-size: cover; background-position: center; border-radius: 30px; border: 1px solid rgba(162, 209, 73, 0.3);
         }
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-            color: #34495e;
+        .hero h1 { font-size: 3.5em; margin-bottom: 10px; color: var(--accent); text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .hero p { font-size: 1.3em; color: #cbd5e1; }
+
+        /* Admin & Login Style */
+        .login-screen { text-align: center; padding: 50px; background: var(--card-bg); border-radius: 20px; max-width: 400px; margin: 50px auto; }
+        .admin-box { background: var(--card-bg); padding: 25px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #334155; }
+
+        input, select {
+            width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
         }
-        input[type="text"], input[type="file"], select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #2ecc71;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 25px;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #27ae60;
-        }
-        #message {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 6px;
-            font-weight: bold;
-            text-align: center;
-            display: none;
-        }
-        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+        .btn { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
+        .btn-buy { background: var(--whatsapp); color: white; margin-top: 15px; font-size: 1.1em; }
+        .btn-save { background: var(--accent); color: #000; }
+        .btn-logout { background: var(--danger); color: white; width: auto; padding: 8px 20px; margin-top: 10px; }
+
+        /* Products */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .product-card { background: var(--card-bg); border-radius: 20px; padding: 25px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .price-tag { font-size: 1.6em; color: var(--accent); font-weight: bold; margin: 10px 0; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
+<nav>
+    <div style="font-size: 1.5em; font-weight: bold; color: var(--accent);">المهندس فون</div>
+    <div class="nav-links">
+        <button onclick="showPage('home')" id="nav-home" class="active">🏠 الرئيسية</button>
+        <button onclick="showPage('phones')">📱 الهواتف</button>
+        <button onclick="showPage('acc')">🎧 الإكسسوارات</button>
+        <button onclick="checkAdminAccess()" id="nav-admin" style="color: var(--accent); border: 1px solid; padding: 4px 12px; border-radius: 5px;">🔒 الإدارة</button>
+    </div>
+</nav>
+
 <div class="container">
-    <h2>🚀 أرشفة ملف جديد</h2>
-    <form id="archiveForm">
 
-        <label for="category">اختر تصنيف الأرشيف:</label>
-        <select id="category" name="category" required>
-            <option value="Uncategorized">غير مصنف</option>
-            <option value="HR_Contracts">عقود الموارد البشرية</option>
-            <option value="Finance_Invoices">فواتير ومالية</option>
-            <option value="Technical_Reports">تقارير فنية</option>
-            <option value="Legal_Documents">وثائق قانونية</option>
-        </select>
+    <div id="home" class="page active">
+        <div class="hero">
+            <h1>مرحباً بكم في متجر المهندس فون</h1>
+            <p>وجهتكم الأولى لأحدث الهواتف الذكية والإكسسوارات الأصلية.</p>
+            <button class="btn btn-save" style="width: auto; padding: 15px 40px; margin-top: 20px;" onclick="showPage('phones')">تصفح المنتجات الآن</button>
+        </div>
+    </div>
 
-        <label for="fileInput">اختر الملف المراد أرشفته:</label>
-        <input type="file" id="fileInput" name="file" required>
+    <div id="admin-login" class="page">
+        <div class="login-screen">
+            <h2>🔑 دخول المسؤول</h2>
+            <input type="password" id="admin-pass" placeholder="كلمة المرور">
+            <button class="btn btn-save" onclick="verifyAdmin()">دخول</button>
+        </div>
+    </div>
 
-        <input type="hidden" id="computer_name" name="computer_name">
-        <input type="hidden" id="user_name" name="user_name">
+    <div id="admin-panel" class="page">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>🛠️ إدارة المتجر</h2>
+            <button class="btn btn-logout" onclick="logoutAdmin()">خروج</button>
+        </div>
 
-        <button type="submit" id="submitBtn">أرشفة وإرسال</button>
-    </form>
+        <div class="admin-box">
+            <h3>⚙️ الإعدادات العامة</h3>
+            <label>رقم واتساب المتجر (بدون + أو 00):</label>
+            <input type="text" id="store-phone" placeholder="مثال: 9665xxxxxxxx" onchange="saveSettings()">
+        </div>
 
-    <div id="message"></div>
+        <div class="admin-box">
+            <h3>➕ إضافة منتج جديد</h3>
+            <input type="text" id="p-name" placeholder="اسم الجهاز / الملحق">
+            <input type="number" id="p-price" placeholder="السعر ($)">
+            <select id="p-type">
+                <option value="phone">هاتف ذكي</option>
+                <option value="acc">إكسسوار</option>
+            </select>
+            <button class="btn btn-save" onclick="saveProduct()">إضافة للمتجر</button>
+        </div>
+
+        <h3>📦 قائمة البضاعة الحالية</h3>
+        <div id="admin-inventory-list"></div>
+    </div>
+
+    <div id="phones" class="page">
+        <h2 style="border-right: 4px solid var(--accent); padding-right: 15px;">📱 أحدث الهواتف الذكية</h2>
+        <div class="products-grid" id="phones-list"></div>
+    </div>
+
+    <div id="acc" class="page">
+        <h2 style="border-right: 4px solid var(--accent); padding-right: 15px;">🎧 إكسسوارات ومميزات</h2>
+        <div class="products-grid" id="acc-list"></div>
+    </div>
+
 </div>
 
 <script>
-    // ⭐️ يجب تعديل هذا المتغير ليتطابق مع عنوان IP لخادم Flask API
-    const API_URL = "http://192.168.100.30:5000/77";
+    const ADMIN_PASSWORD = "admin123"; // كلمة المرور
+    let isAdminAuthenticated = false;
 
-    // محاكاة للحصول على معلومات الجهاز والمستخدم (محدودية المتصفح)
-    // في بيئة عمل حقيقية، يتم تمرير هذه البيانات عبر سكريبت تسجيل الدخول أو آلياً.
-    document.getElementById('computer_name').value = 'PC_WEB_' + Math.floor(Math.random() * 200);
-    document.getElementById('user_name').value = 'User_' + Math.floor(Math.random() * 50);
+    let products = JSON.parse(localStorage.getItem('engPhoneData')) || [];
+    let storePhone = localStorage.getItem('engStorePhone') || "";
 
-    document.getElementById('archiveForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+        if(document.getElementById('nav-'+pageId)) document.getElementById('nav-'+pageId).classList.add('active');
+        renderAll();
+    }
 
-        const fileInput = document.getElementById('fileInput');
-        const category = document.getElementById('category').value;
-        const submitBtn = document.getElementById('submitBtn');
-        const messageDiv = document.getElementById('message');
+    function checkAdminAccess() {
+        isAdminAuthenticated ? showPage('admin-panel') : showPage('admin-login');
+    }
 
-        if (fileInput.files.length === 0) {
-            alert('الرجاء اختيار ملف أولاً.');
-            return;
+    function verifyAdmin() {
+        if (document.getElementById('admin-pass').value === ADMIN_PASSWORD) {
+            isAdminAuthenticated = true;
+            document.getElementById('nav-admin').innerText = "🔓 الإدارة";
+            showPage('admin-panel');
+        } else {
+            alert("كلمة المرور غير صحيحة");
         }
+        document.getElementById('admin-pass').value = "";
+    }
 
-        const file = fileInput.files[0];
+    function logoutAdmin() {
+        isAdminAuthenticated = false;
+        document.getElementById('nav-admin').innerText = "🔒 الإدارة";
+        showPage('home');
+    }
 
-        // 1. بناء كائن FormData لإرسال الملف والبيانات الوصفية
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('computer_name', document.getElementById('computer_name').value);
-        formData.append('user_name', document.getElementById('user_name').value);
-        formData.append('category', category);
+    function saveSettings() {
+        storePhone = document.getElementById('store-phone').value;
+        localStorage.setItem('engStorePhone', storePhone);
+    }
 
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'جاري الإرسال...';
-        messageDiv.style.display = 'none';
+    function saveProduct() {
+        const name = document.getElementById('p-name').value;
+        const price = document.getElementById('p-price').value;
+        const type = document.getElementById('p-type').value;
+        if(!name || !price) return alert("يرجى ملء البيانات");
 
-        try {
-            // 2. إرسال طلب POST إلى خادم Flask API
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                body: formData
-            });
+        products.push({ id: Date.now(), name, price, type });
+        localStorage.setItem('engPhoneData', JSON.stringify(products));
+        renderAll();
+        document.getElementById('p-name').value = '';
+        document.getElementById('p-price').value = '';
+    }
 
-            const result = await response.json();
-
-            // 3. عرض النتيجة
-            messageDiv.style.display = 'block';
-            if (response.ok && result.success) {
-                messageDiv.className = 'success';
-                messageDiv.innerHTML = `✅ تم أرشفة الملف بنجاح! اسم الملف: <strong>${file.name}</strong>`;
-                document.getElementById('archiveForm').reset();
-            } else {
-                messageDiv.className = 'error';
-                messageDiv.innerHTML = `❌ فشل الأرشفة. خطأ: ${result.error || 'خطأ غير معروف'}`;
-            }
-
-        } catch (error) {
-            messageDiv.style.display = 'block';
-            messageDiv.className = 'error';
-            messageDiv.innerHTML = `❌ خطأ في الاتصال بالخادم (تأكد من عنوان IP والمنفذ): ${error.message}`;
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'أرشفة وإرسال';
+    function deleteProduct(id) {
+        if(confirm("حذف المنتج؟")) {
+            products = products.filter(p => p.id !== id);
+            localStorage.setItem('engPhoneData', JSON.stringify(products));
+            renderAll();
         }
-    });
+    }
+
+    function sendOrder(name, price) {
+        if(!storePhone) return alert("يرجى ضبط رقم الواتساب في الإدارة");
+        const msg = `مرحباً متجر المهندس فون 👋%0Aأود طلب: ${name}%0Aالسعر: ${price}$`;
+        window.open(`https://wa.me/${storePhone}?text=${msg}`, '_blank');
+    }
+
+    function renderAll() {
+        document.getElementById('store-phone').value = storePhone;
+
+        document.getElementById('phones-list').innerHTML = products.filter(p => p.type === 'phone').map(p => `
+            <div class="product-card">
+                <h3>${p.name}</h3>
+                <div class="price-tag">$${p.price}</div>
+                <button class="btn btn-buy" onclick="sendOrder('${p.name}', '${p.price}')">اطلب عبر واتساب ✅</button>
+            </div>
+        `).join('') || "<p>لا توجد هواتف حالياً</p>";
+
+        document.getElementById('acc-list').innerHTML = products.filter(p => p.type === 'acc').map(p => `
+            <div class="product-card">
+                <h3>${p.name}</h3>
+                <div class="price-tag">$${p.price}</div>
+                <button class="btn btn-buy" onclick="sendOrder('${p.name}', '${p.price}')">اطلب عبر واتساب ✅</button>
+            </div>
+        `).join('') || "<p>لا توجد إكسسوارات حالياً</p>";
+
+        document.getElementById('admin-inventory-list').innerHTML = products.map(p => `
+            <div style="background:#0f172a; padding:15px; margin-bottom:10px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+                <span>${p.name} (${p.type === 'phone' ? 'هاتف' : 'إكسسوار'})</span>
+                <button onclick="deleteProduct(${p.id})" style="color:var(--danger); background:none; border:none; cursor:pointer; font-weight:bold;">حذف</button>
+            </div>
+        `).join('');
+    }
+
+    renderAll();
 </script>
-
 </body>
 </html>
