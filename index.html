@@ -3,19 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المهندس فون | المتجر الرسمي</title>
+    <title>المهندس فون | ليبيا</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #a2d149; --dark: #0f172a; --card: #1e293b;
             --text: #f8fafc; --gray: #94a3b8; --whatsapp: #25d366;
         }
-
-        body { 
-            font-family: 'Cairo', sans-serif; background: var(--dark); 
-            color: var(--text); margin: 0; scroll-behavior: smooth;
-        }
-
+        body { font-family: 'Cairo', sans-serif; background: var(--dark); color: var(--text); margin: 0; }
         nav {
             background: rgba(30, 41, 59, 0.95); backdrop-filter: blur(8px);
             padding: 15px 5%; display: flex; justify-content: space-between;
@@ -23,71 +18,33 @@
             position: sticky; top: 0; z-index: 1000;
         }
         .logo { font-size: 1.5em; font-weight: bold; color: var(--primary); text-decoration: none; }
-        .nav-links button { 
-            background: none; border: none; color: white; margin-right: 15px; 
-            cursor: pointer; font-family: 'Cairo'; font-size: 1em;
-        }
-
+        .nav-links button { background: none; border: none; color: white; margin-right: 15px; cursor: pointer; font-family: 'Cairo'; }
         .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
         .page { display: none; animation: fadeIn 0.5s ease; }
         .page.active { display: block; }
 
-        /* Brand Filters */
-        .filter-bar {
-            display: flex; gap: 10px; overflow-x: auto; padding: 10px 0;
-            margin-bottom: 25px; scrollbar-width: none;
-        }
-        .filter-bar::-webkit-scrollbar { display: none; }
+        .filter-bar { display: flex; gap: 10px; overflow-x: auto; padding: 10px 0; margin-bottom: 25px; }
         .filter-btn {
             background: var(--card); color: white; border: 1px solid rgba(255,255,255,0.1);
-            padding: 8px 20px; border-radius: 20px; cursor: pointer; white-space: nowrap;
-            font-family: 'Cairo'; transition: 0.3s;
+            padding: 8px 20px; border-radius: 20px; cursor: pointer; white-space: nowrap; font-family: 'Cairo';
         }
         .filter-btn.active { background: var(--primary); color: var(--dark); font-weight: bold; }
 
-        /* Products Grid */
-        .products-grid { 
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-            gap: 20px;
-        }
-        .card {
-            background: var(--card); border-radius: 20px; overflow: hidden;
-            display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.05);
-            transition: 0.3s;
-        }
-        .card:hover { transform: translateY(-8px); border-color: var(--primary); }
-        .img-container { background: #fff; height: 220px; padding: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .img-container img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        .card { background: var(--card); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.05); }
         
-        .card-content { padding: 15px; text-align: center; flex-grow: 1; }
-        .price-tag { margin-top: auto; padding-top: 10px; }
+        /* تحسين صندوق الصور */
+        .img-container { background: #fff; height: 220px; padding: 10px; display: flex; align-items: center; justify-content: center; }
+        .img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        .card-content { padding: 15px; text-align: center; }
         .usd { display: block; font-size: 1.4em; font-weight: bold; color: var(--primary); }
         .lyd { display: block; font-size: 0.9em; color: var(--gray); }
+        .buy-btn { background: var(--whatsapp); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold; font-family: 'Cairo'; margin-top: 15px; }
 
-        .buy-btn { 
-            background: var(--whatsapp); color: white; border: none; padding: 12px;
-            border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold;
-            font-family: 'Cairo'; margin-top: 15px;
-        }
-
-        .hero {
-            text-align: center; padding: 40px 20px; border-radius: 25px;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            border: 1px solid rgba(162, 209, 73, 0.1); margin-bottom: 30px;
-        }
-
-        footer {
-            margin-top: 50px; padding: 40px 20px; border-top: 1px solid #334155;
-            text-align: center; background: #0b1222;
-        }
-
+        footer { margin-top: 50px; padding: 40px 20px; border-top: 1px solid #334155; text-align: center; background: #0b1222; }
         @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-
-        @media (max-width: 600px) {
-            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .img-container { height: 160px; }
-            .logo { font-size: 1.2em; }
-        }
+        @media (max-width: 600px) { .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } .img-container { height: 160px; } }
     </style>
 </head>
 <body>
@@ -101,26 +58,24 @@
 </nav>
 
 <div class="container">
-    
     <div id="home" class="page active">
-        <div class="hero">
-            <h1>المهندس فون</h1>
-            <p>أفضل التقنيات بأسعار السوق الليبي</p>
+        <div style="text-align: center; padding: 60px 20px; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 25px; margin-bottom: 30px;">
+            <h1 style="color: var(--primary);">متجر المهندس فون</h1>
+            <p>أهلاً بكم في واجهتكم الأولى للتقنية في ليبيا</p>
             <div style="display: flex; gap:10px; justify-content:center; margin-top:20px;">
-                <button class="filter-btn active" onclick="showPage('phones')">📱 الهواتف</button>
-                <button class="filter-btn active" onclick="showPage('acc')">🎧 الإكسسوارات</button>
+                <button class="filter-btn active" onclick="showPage('phones')">تصفح الهواتف</button>
+                <button class="filter-btn active" onclick="showPage('acc')">تصفح الإكسسوارات</button>
             </div>
         </div>
     </div>
 
     <div id="phones" class="page">
-        <h2 style="text-align: center; color: var(--primary);">📱 تصفح حسب الشركة</h2>
+        <h2 style="text-align: center; color: var(--primary);">📱 الهواتف حسب الشركة</h2>
         <div class="filter-bar">
             <button class="filter-btn active" onclick="filterPhones('all', this)">الكل</button>
             <button class="filter-btn" onclick="filterPhones('Apple', this)">Apple</button>
             <button class="filter-btn" onclick="filterPhones('Samsung', this)">Samsung</button>
             <button class="filter-btn" onclick="filterPhones('Xiaomi', this)">Xiaomi</button>
-            <button class="filter-btn" onclick="filterPhones('Infinix', this)">Infinix</button>
         </div>
         <div class="products-grid" id="phones-list"></div>
     </div>
@@ -129,7 +84,6 @@
         <h2 style="text-align: center; color: var(--primary);">🎧 قسم الإكسسوارات</h2>
         <div class="products-grid" id="acc-list"></div>
     </div>
-
 </div>
 
 <footer>
@@ -143,45 +97,27 @@
     const RATE = 8.28;
     const WHATSAPP = "218946895177";
 
-    // تم تغيير الروابط لروابط عامة وموثوقة تعمل في كل المتصفحات
+    // تم استخدام روابط من Pixabay و Unsplash وهي روابط مفتوحة المصدر وتعمل دائماً
     const products = [
-        // Apple
-        { id: 1, brand: 'Apple', type: 'phone', name: 'iPhone 15 Pro Max', price: 1199, img: 'https://www.apple.com/v/iphone/home/bu/images/overview/select/iphone_15_pro__fba5m362z92a_xlarge.png' },
-        { id: 2, brand: 'Apple', type: 'phone', name: 'iPhone 15', price: 899, img: 'https://www.apple.com/v/iphone/home/bu/images/overview/select/iphone_15__fm75iyql9u6u_xlarge.png' },
-        { id: 3, brand: 'Apple', type: 'phone', name: 'iPhone 14', price: 699, img: 'https://www.apple.com/v/iphone/home/bu/images/overview/select/iphone_14__m8u3m7u93guq_xlarge.png' },
-        
-        // Samsung
-        { id: 4, brand: 'Samsung', type: 'phone', name: 'Galaxy S24 Ultra', price: 1250, img: 'https://images.samsung.com/is/image/samsung/p6pim/ae/2401/gb/sm-s928bztnmea/600_600_desktop_v1.png' },
-        { id: 5, brand: 'Samsung', type: 'phone', name: 'Galaxy A54 5G', price: 350, img: 'https://images.samsung.com/is/image/samsung/p6pim/ae/sm-a546ezkdmea/600_600_desktop_v1.png' },
-
-        // Xiaomi
-        { id: 7, brand: 'Xiaomi', type: 'phone', name: 'Redmi Note 13 Pro', price: 420, img: 'https://m.media-amazon.com/images/I/61SOnG9O-5L._AC_SL1200_.jpg' },
-
-        // Infinix
-        { id: 9, brand: 'Infinix', type: 'phone', name: 'Note 30 VIP', price: 290, img: 'https://m.media-amazon.com/images/I/61vYpX0T6HL._AC_SL1200_.jpg' },
-
-        // Accessories (تم تعديل صور الإكسسوارات أيضاً)
-        { id: 20, brand: 'Apple', type: 'acc', name: 'AirPods Pro 2', price: 249, img: 'https://m.media-amazon.com/images/I/61f1YfFpU5L._AC_SL1500_.jpg' },
-        { id: 21, brand: 'Apple', type: 'acc', name: 'Watch Series 9', price: 399, img: 'https://m.media-amazon.com/images/I/71X8X8K7BvL._AC_SL1500_.jpg' },
-        { id: 22, brand: 'Apple', type: 'acc', name: 'شاحن 20W أصلي', price: 25, img: 'https://m.media-amazon.com/images/I/41iWogpZ16L._AC_SL1024_.jpg' }
+        { id: 1, brand: 'Apple', type: 'phone', name: 'iPhone 15 Pro Max', price: 1199, img: 'https://cdn.pixabay.com/photo/2021/09/25/20/15/iphone-13-6655518_1280.jpg' },
+        { id: 2, brand: 'Apple', type: 'phone', name: 'iPhone 14 Pro', price: 899, img: 'https://cdn.pixabay.com/photo/2022/09/25/11/44/iphone-14-7478144_1280.jpg' },
+        { id: 3, brand: 'Samsung', type: 'phone', name: 'Galaxy S24 Ultra', price: 1250, img: 'https://cdn.pixabay.com/photo/2017/04/26/16/06/mobile-phone-2262928_1280.jpg' },
+        { id: 4, brand: 'Samsung', type: 'phone', name: 'Galaxy A54', price: 350, img: 'https://cdn.pixabay.com/photo/2016/12/09/11/33/smartphone-1894723_1280.jpg' },
+        { id: 5, brand: 'Xiaomi', type: 'phone', name: 'Redmi Note 13', price: 420, img: 'https://cdn.pixabay.com/photo/2021/11/14/05/23/smartphone-6792948_1280.jpg' },
+        { id: 6, brand: 'Apple', type: 'acc', name: 'AirPods Pro', price: 249, img: 'https://cdn.pixabay.com/photo/2020/05/14/19/20/airpods-5171041_1280.jpg' },
+        { id: 7, brand: 'Apple', type: 'acc', name: 'Apple Watch', price: 399, img: 'https://cdn.pixabay.com/photo/2015/08/15/15/38/smart-watch-889639_1280.jpg' }
     ];
 
     function showPage(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        window.scrollTo(0,0);
         render('all');
     }
 
     function filterPhones(brand, btn) {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#phones .filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         render(brand);
-    }
-
-    function sendOrder(name, price) {
-        const msg = `طلب جديد من المهندس فون:\nالمنتج: ${name}\nالسعر: $${price} (${(price * RATE).toFixed(2)} د.ل)`;
-        window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP}&text=${encodeURIComponent(msg)}`, '_blank');
     }
 
     function render(brandFilter = 'all') {
@@ -191,7 +127,7 @@
         const createCard = (p) => `
             <div class="card">
                 <div class="img-container">
-                    <img src="${p.img}" alt="${p.name}" loading="lazy">
+                    <img src="${p.img}" alt="${p.name}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/15/15874.png'">
                 </div>
                 <div class="card-content">
                     <h3>${p.name}</h3>
@@ -199,16 +135,20 @@
                         <span class="usd">$${p.price}</span>
                         <span class="lyd">~ ${(p.price * RATE).toFixed(2)} د.ل</span>
                     </div>
-                    <button class="buy-btn" onclick="sendOrder('${p.name}', ${p.price})">اطلب واتساب ✅</button>
+                    <button class="buy-btn" onclick="sendOrder('${p.name}', ${p.price})">اطلب عبر واتساب ✅</button>
                 </div>
             </div>`;
 
-        const filteredPhones = brandFilter === 'all' 
-            ? products.filter(p => p.type === 'phone') 
-            : products.filter(p => p.type === 'phone' && p.brand === brandFilter);
-        
-        if(pList) pList.innerHTML = filteredPhones.map(createCard).join('');
-        if(aList) aList.innerHTML = products.filter(p => p.type === 'acc').map(createCard).join('');
+        if(pList) {
+            const filtered = brandFilter === 'all' ? products.filter(x => x.type === 'phone') : products.filter(x => x.type === 'phone' && x.brand === brandFilter);
+            pList.innerHTML = filtered.map(createCard).join('');
+        }
+        if(aList) aList.innerHTML = products.filter(x => x.type === 'acc').map(createCard).join('');
+    }
+
+    function sendOrder(name, price) {
+        const msg = encodeURIComponent(`طلب جديد: ${name}\nالسعر: $${price}`);
+        window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP}&text=${msg}`, '_blank');
     }
 
     render();
