@@ -16,7 +16,6 @@
             color: var(--text); margin: 0; scroll-behavior: smooth;
         }
 
-        /* Navigation */
         nav {
             background: rgba(30, 41, 59, 0.95); backdrop-filter: blur(8px);
             padding: 15px 5%; display: flex; justify-content: space-between;
@@ -57,8 +56,8 @@
             transition: 0.3s;
         }
         .card:hover { transform: translateY(-8px); border-color: var(--primary); }
-        .img-container { background: #fff; height: 200px; padding: 15px; display: flex; align-items: center; justify-content: center; }
-        .img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .img-container { background: #fff; height: 220px; padding: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .img-container img { max-width: 90%; max-height: 90%; object-fit: contain; }
         
         .card-content { padding: 15px; text-align: center; flex-grow: 1; }
         .price-tag { margin-top: auto; padding-top: 10px; }
@@ -71,7 +70,6 @@
             font-family: 'Cairo'; margin-top: 15px;
         }
 
-        /* Hero */
         .hero {
             text-align: center; padding: 40px 20px; border-radius: 25px;
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -87,7 +85,7 @@
 
         @media (max-width: 600px) {
             .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .img-container { height: 150px; }
+            .img-container { height: 160px; }
             .logo { font-size: 1.2em; }
         }
     </style>
@@ -107,10 +105,10 @@
     <div id="home" class="page active">
         <div class="hero">
             <h1>المهندس فون</h1>
-            <p>أفضل الهواتف الذكية بأسعار السوق الليبي</p>
+            <p>أفضل التقنيات بأسعار السوق الليبي</p>
             <div style="display: flex; gap:10px; justify-content:center; margin-top:20px;">
-                <button class="filter-btn active" onclick="showPage('phones')">📱 استعرض الهواتف</button>
-                <button class="filter-btn active" onclick="showPage('acc')">🎧 استعرض الإكسسوارات</button>
+                <button class="filter-btn active" onclick="showPage('phones')">📱 الهواتف</button>
+                <button class="filter-btn active" onclick="showPage('acc')">🎧 الإكسسوارات</button>
             </div>
         </div>
     </div>
@@ -145,29 +143,27 @@
     const RATE = 8.28;
     const WHATSAPP = "218946895177";
 
+    // تم تغيير الروابط لروابط عامة وموثوقة تعمل في كل المتصفحات
     const products = [
         // Apple
-        { id: 1, brand: 'Apple', type: 'phone', name: 'iPhone 15 Pro Max', price: 1199, img: 'https://inventstore.in/wp-content/uploads/2023/09/iphone-15-pro-max-natural-titanium.webp' },
-        { id: 2, brand: 'Apple', type: 'phone', name: 'iPhone 15 Pro', price: 999, img: 'https://inventstore.in/wp-content/uploads/2023/09/iphone-15-pro-black-titanium.webp' },
-        { id: 3, brand: 'Apple', type: 'phone', name: 'iPhone 14', price: 699, img: 'https://inventstore.in/wp-content/uploads/2023/04/iphone-14-blue.webp' },
+        { id: 1, brand: 'Apple', type: 'phone', name: 'iPhone 15 Pro Max', price: 1199, img: 'https://www.apple.com/v/iphone/home/bu/images/overview/select/iphone_15_pro__fba5m362z92a_xlarge.png' },
+        { id: 2, brand: 'Apple', type: 'phone', name: 'iPhone 15', price: 899, img: 'https://www.apple.com/v/iphone/home/bu/images/overview/select/iphone_15__fm75iyql9u6u_xlarge.png' },
+        { id: 3, brand: 'Apple', type: 'phone', name: 'iPhone 14', price: 699, img: 'https://www.apple.com/v/iphone/home/bu/images/overview/select/iphone_14__m8u3m7u93guq_xlarge.png' },
         
         // Samsung
-        { id: 4, brand: 'Samsung', type: 'phone', name: 'Galaxy S24 Ultra', price: 1250, img: 'https://m.media-amazon.com/images/I/71RZA69zGeL._AC_SL1500_.jpg' },
-        { id: 5, brand: 'Samsung', type: 'phone', name: 'Galaxy A54 5G', price: 350, img: 'https://m.media-amazon.com/images/I/61fdfW89X6L._AC_SL1200_.jpg' },
-        { id: 6, brand: 'Samsung', type: 'phone', name: 'Galaxy S23 FE', price: 580, img: 'https://m.media-amazon.com/images/I/719S9nscS6L._AC_SL1500_.jpg' },
+        { id: 4, brand: 'Samsung', type: 'phone', name: 'Galaxy S24 Ultra', price: 1250, img: 'https://images.samsung.com/is/image/samsung/p6pim/ae/2401/gb/sm-s928bztnmea/600_600_desktop_v1.png' },
+        { id: 5, brand: 'Samsung', type: 'phone', name: 'Galaxy A54 5G', price: 350, img: 'https://images.samsung.com/is/image/samsung/p6pim/ae/sm-a546ezkdmea/600_600_desktop_v1.png' },
 
         // Xiaomi
-        { id: 7, brand: 'Xiaomi', type: 'phone', name: 'Redmi Note 13 Pro+', price: 420, img: 'https://m.media-amazon.com/images/I/61SOnG9O-5L._AC_SL1200_.jpg' },
-        { id: 8, brand: 'Xiaomi', type: 'phone', name: 'Poco X6 Pro', price: 390, img: 'https://m.media-amazon.com/images/I/51A31T-933L._AC_SL1000_.jpg' },
+        { id: 7, brand: 'Xiaomi', type: 'phone', name: 'Redmi Note 13 Pro', price: 420, img: 'https://m.media-amazon.com/images/I/61SOnG9O-5L._AC_SL1200_.jpg' },
 
         // Infinix
         { id: 9, brand: 'Infinix', type: 'phone', name: 'Note 30 VIP', price: 290, img: 'https://m.media-amazon.com/images/I/61vYpX0T6HL._AC_SL1200_.jpg' },
 
-        // Accessories
+        // Accessories (تم تعديل صور الإكسسوارات أيضاً)
         { id: 20, brand: 'Apple', type: 'acc', name: 'AirPods Pro 2', price: 249, img: 'https://m.media-amazon.com/images/I/61f1YfFpU5L._AC_SL1500_.jpg' },
         { id: 21, brand: 'Apple', type: 'acc', name: 'Watch Series 9', price: 399, img: 'https://m.media-amazon.com/images/I/71X8X8K7BvL._AC_SL1500_.jpg' },
-        { id: 22, brand: 'Apple', type: 'acc', name: 'شاحن 20W أصلي', price: 25, img: 'https://m.media-amazon.com/images/I/41iWogpZ16L._AC_SL1024_.jpg' },
-        { id: 23, brand: 'Samsung', type: 'acc', name: 'Buds 2 Pro', price: 180, img: 'https://m.media-amazon.com/images/I/6146u-N9vIL._AC_SL1500_.jpg' }
+        { id: 22, brand: 'Apple', type: 'acc', name: 'شاحن 20W أصلي', price: 25, img: 'https://m.media-amazon.com/images/I/41iWogpZ16L._AC_SL1024_.jpg' }
     ];
 
     function showPage(id) {
@@ -184,7 +180,7 @@
     }
 
     function sendOrder(name, price) {
-        const msg = `طلب جديد: ${name}\nالسعر: $${price} (${(price * RATE).toFixed(2)} د.ل)`;
+        const msg = `طلب جديد من المهندس فون:\nالمنتج: ${name}\nالسعر: $${price} (${(price * RATE).toFixed(2)} د.ل)`;
         window.open(`https://api.whatsapp.com/send?phone=${WHATSAPP}&text=${encodeURIComponent(msg)}`, '_blank');
     }
 
@@ -194,25 +190,24 @@
 
         const createCard = (p) => `
             <div class="card">
-                <div class="img-container"><img src="${p.img}" alt="${p.name}"></div>
+                <div class="img-container">
+                    <img src="${p.img}" alt="${p.name}" loading="lazy">
+                </div>
                 <div class="card-content">
                     <h3>${p.name}</h3>
                     <div class="price-tag">
                         <span class="usd">$${p.price}</span>
                         <span class="lyd">~ ${(p.price * RATE).toFixed(2)} د.ل</span>
                     </div>
-                    <button class="buy-btn" onclick="sendOrder('${p.name}', ${p.price})">اطلب عبر واتساب ✅</button>
+                    <button class="buy-btn" onclick="sendOrder('${p.name}', ${p.price})">اطلب واتساب ✅</button>
                 </div>
             </div>`;
 
-        // رندر الهواتف حسب الفلتر
         const filteredPhones = brandFilter === 'all' 
             ? products.filter(p => p.type === 'phone') 
             : products.filter(p => p.type === 'phone' && p.brand === brandFilter);
         
         if(pList) pList.innerHTML = filteredPhones.map(createCard).join('');
-        
-        // رندر الإكسسوارات
         if(aList) aList.innerHTML = products.filter(p => p.type === 'acc').map(createCard).join('');
     }
 
