@@ -3,237 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر المهندس فون - ليبيا</title>
+    <title>متجر المهندس فون | ليبيا</title>
     <style>
         :root {
             --bg-body: #0f172a; --card-bg: #1e293b; --accent: #a2d149;
             --text: #f8fafc; --danger: #ef4444; --whatsapp: #25d366;
         }
 
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg-body); color: var(--text); margin: 0; line-height: 1.6; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg-body); color: var(--text); margin: 0; }
 
         /* Navigation */
         nav {
             background: var(--card-bg); padding: 15px 5%; display: flex; justify-content: space-between;
             align-items: center; border-bottom: 2px solid var(--accent); position: sticky; top: 0; z-index: 1000;
         }
-        .nav-links button { background: none; border: none; color: white; margin: 0 10px; cursor: pointer; transition: 0.3s; font-size: 1.1em; }
-        .nav-links button.active { color: var(--accent); font-weight: bold; border-bottom: 2px solid var(--accent); }
+        .logo { font-size: 1.5em; font-weight: bold; color: var(--accent); text-decoration: none; }
+        .nav-links button { background: none; border: none; color: white; margin: 0 5px; cursor: pointer; font-size: 1em; }
+        .nav-links button.active { color: var(--accent); font-weight: bold; }
 
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
         .page { display: none; animation: fadeIn 0.4s ease; }
         .page.active { display: block; }
 
-        /* Hero Section */
+        /* Hero & Stats */
         .hero { 
-            text-align: center; padding: 100px 20px; 
-            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80');
-            background-size: cover; background-position: center; border-radius: 30px; border: 1px solid rgba(162, 209, 73, 0.3);
+            text-align: center; padding: 50px 20px; border-radius: 20px; 
+            background: linear-gradient(45deg, #1e293b, #0f172a); border: 1px solid rgba(162, 209, 73, 0.2);
+            margin-bottom: 20px;
         }
-        .hero h1 { font-size: 3em; color: var(--accent); margin-bottom: 15px; }
+        .visitor-stats {
+            background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px;
+            margin: 20px auto; max-width: 600px; border: 1px dashed var(--accent);
+        }
 
         /* Products Grid */
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; }
+        .products-grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; 
+        }
+
         .product-card { 
-            background: var(--card-bg); border-radius: 20px; padding: 25px; text-align: center; 
-            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; 
+            background: var(--card-bg); border-radius: 15px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05); transition: 0.3s; display: flex; flex-direction: column;
         }
         .product-card:hover { transform: translateY(-5px); border-color: var(--accent); }
-        .price-usd { font-size: 1.8em; color: var(--accent); font-weight: bold; margin-bottom: 5px; }
-        .price-lyd { color: #94a3b8; font-size: 1em; margin-bottom: 15px; border-top: 1px solid #334155; padding-top: 5px; }
-
-        /* Admin & Forms */
-        .admin-box { background: var(--card-bg); padding: 25px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #334155; }
-        input, select { 
-            width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box;
-        }
+        .product-img { width: 100%; height: 180px; object-fit: contain; background: #fff; padding: 10px; box-sizing: border-box; }
+        .product-info { padding: 15px; text-align: center; }
+        .price-usd { font-size: 1.4em; color: var(--accent); font-weight: bold; }
+        .price-lyd { color: #94a3b8; font-size: 0.9em; margin-bottom: 12px; }
 
         .btn { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s; }
-        .btn-buy { background: var(--whatsapp); color: white; font-size: 1.1em; }
-        .btn-save { background: var(--accent); color: #000; }
-        .btn-logout { background: var(--danger); color: white; width: auto; padding: 8px 20px; }
+        .btn-buy { background: var(--whatsapp); color: white; }
+        .btn-cat { background: var(--card-bg); color: white; border: 1px solid var(--accent); margin-bottom: 10px; }
+
+        /* Admin Forms */
+        .admin-box { background: var(--card-bg); padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 600px) {
+            .products-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+            .product-img { height: 140px; }
+            .hero h1 { font-size: 1.8em; }
+        }
     </style>
 </head>
 <body>
 
 <nav>
-    <div style="font-size: 1.6em; font-weight: bold; color: var(--accent);">المهندس فون</div>
+    <a href="#" class="logo">المهندس فون</a>
     <div class="nav-links">
-        <button onclick="showPage('home')" id="nav-home" class="active">🏠 الرئيسية</button>
-        <button onclick="showPage('phones')">📱 الهواتف</button>
-        <button onclick="showPage('acc')">🎧 الإكسسوارات</button>
-        <button onclick="checkAdminAccess()" id="nav-admin" style="color: var(--accent); border: 1px solid; padding: 4px 12px; border-radius: 5px;">🔒 الإدارة</button>
+        <button onclick="showPage('home')" id="btn-home" class="active">الرئيسية</button>
+        <button onclick="showPage('phones')">هواتف</button>
+        <button onclick="showPage('acc')">إكسسوار</button>
+        <button onclick="checkAdminAccess()">⚙️</button>
     </div>
 </nav>
 
 <div class="container">
-    
     <div id="home" class="page active">
         <div class="hero">
-            <h1>مرحباً بكم في متجر المهندس فون</h1>
-            <p>أفضل الأسعار وأحدث الموديلات في السوق الليبي</p>
-            <button class="btn btn-save" style="width: auto; padding: 15px 40px; margin-top: 20px;" onclick="showPage('phones')">ابدأ التسوق</button>
+            <h1>متجر المهندس فون</h1>
+            <p>وجهتكم الأولى لأحدث الهواتف في ليبيا</p>
+            
+            <div class="visitor-stats">
+                <h4 style="margin-top: 0; color: var(--accent);">📊 إحصائيات الزوار والدول</h4>
+                <a href="https://info.flagcounter.com/8uO3">
+                    <img src="https://s11.flagcounter.com/count2/8uO3/bg_1E293B/txt_F8FAFC/border_1E293B/columns_3/maxflags_12/viewers_3/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0">
+                </a>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-cat" onclick="showPage('phones')">📱 قسم الهواتف</button>
+                <button class="btn btn-cat" onclick="showPage('acc')">🎧 قسم الإكسسوارات</button>
+            </div>
         </div>
     </div>
 
     <div id="phones" class="page">
-        <h2 style="border-right: 4px solid var(--accent); padding-right: 15px; margin-bottom: 30px;">📱 قائمة الهواتف الذكية</h2>
+        <h2 style="border-right: 4px solid var(--accent); padding-right: 10px;">📱 الهواتف المتوفرة</h2>
         <div class="products-grid" id="phones-list"></div>
     </div>
 
     <div id="acc" class="page">
-        <h2 style="border-right: 4px solid var(--accent); padding-right: 15px; margin-bottom: 30px;">🎧 الإكسسوارات والملحقات</h2>
+        <h2 style="border-right: 4px solid var(--accent); padding-right: 10px;">🎧 الإكسسوارات الأصلية</h2>
         <div class="products-grid" id="acc-list"></div>
     </div>
 
     <div id="admin-login" class="page">
-        <div style="max-width: 400px; margin: 100px auto; background: var(--card-bg); padding: 40px; border-radius: 20px; text-align: center;">
-            <h2>🔑 دخول المسؤول</h2>
+        <div style="max-width: 350px; margin: 50px auto; text-align: center;" class="admin-box">
+            <h3>🔑 منطقة المسؤول</h3>
             <input type="password" id="admin-pass" placeholder="كلمة المرور">
-            <button class="btn btn-save" onclick="verifyAdmin()">دخول</button>
+            <button class="btn" style="background: var(--accent); color: black;" onclick="verifyAdmin()">دخول</button>
         </div>
     </div>
 
     <div id="admin-panel" class="page">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            <h2>🛠️ إدارة المتجر</h2>
-            <button class="btn btn-logout" onclick="logoutAdmin()">خروج آمن</button>
+        <div class="admin-box">
+            <h3>⚙️ الإعدادات العامة</h3>
+            <label>رقم واتساب الاستلام (218xxxxxxxx):</label>
+            <input type="text" id="store-phone" placeholder="2189xxxxxxxx" onchange="saveSettings()">
+            <button class="btn" style="background: var(--danger); color: white; margin-top: 10px;" onclick="logoutAdmin()">خروج من الإدارة</button>
         </div>
 
         <div class="admin-box">
-            <h3>📞 إعدادات التواصل</h3>
-            <label>رقم الواتساب (مثال: 2189xxxxxxx):</label>
-            <input type="text" id="store-phone" placeholder="أدخل الرقم هنا" onchange="saveSettings()">
-        </div>
-
-        <div class="admin-box">
-            <h3>➕ إضافة منتج جديد (مؤقت للعرض الحالي)</h3>
+            <h3>➕ إضافة منتج جديد</h3>
             <input type="text" id="p-name" placeholder="اسم المنتج">
-            <input type="number" id="p-price" placeholder="السعر بالدولار ($)">
+            <input type="number" id="p-price" placeholder="السعر ($)">
+            <input type="text" id="p-img" placeholder="رابط الصورة (URL)">
             <select id="p-type">
                 <option value="phone">هاتف</option>
                 <option value="acc">إكسسوار</option>
             </select>
-            <button class="btn btn-save" onclick="saveProduct()">إضافة للمتجر</button>
+            <button class="btn" style="background: var(--accent); color: black;" onclick="saveProduct()">حفظ للمخزن</button>
         </div>
 
-        <h3>📦 البضاعة المعروضة</h3>
-        <div id="admin-inventory-list"></div>
+        <h3>📦 إدارة البضاعة الحالية</h3>
+        <div id="admin-inventory"></div>
     </div>
 </div>
 
 <script>
     const ADMIN_PASSWORD = "admin123";
-    const EXCHANGE_RATE = 8.28; // سعر الصرف في ليبيا
-    let isAdminAuthenticated = false;
+    const LYD_RATE = 8.28;
 
-    // المنتجات الـ 20 الافتراضية
-    const defaultProducts = [
-        { id: 1, type: 'phone', name: 'iPhone 15 Pro Max (256GB)', price: 1199 },
-        { id: 2, type: 'phone', name: 'iPhone 15 Pro (128GB)', price: 999 },
-        { id: 3, type: 'phone', name: 'iPhone 14 (128GB)', price: 699 },
-        { id: 4, type: 'phone', name: 'Samsung Galaxy S24 Ultra', price: 1250 },
-        { id: 5, type: 'phone', name: 'Samsung S23 FE', price: 599 },
-        { id: 6, type: 'phone', name: 'Samsung A54 5G', price: 350 },
-        { id: 7, type: 'phone', name: 'Redmi Note 13 Pro+', price: 420 },
-        { id: 8, type: 'phone', name: 'Infinix Note 30 VIP', price: 290 },
-        { id: 9, type: 'phone', name: 'Honor 90 (512GB)', price: 450 },
-        { id: 10, type: 'phone', name: 'Huawei Nova 11i', price: 240 },
-        { id: 11, type: 'acc', name: 'AirPods Pro 2', price: 249 },
-        { id: 12, type: 'acc', name: 'Apple Watch Series 9', price: 399 },
-        { id: 13, type: 'acc', name: 'Samsung Buds 2 Pro', price: 180 },
-        { id: 14, type: 'acc', name: 'شاحن Apple الأصلي 20W', price: 25 },
-        { id: 15, type: 'acc', name: 'شاحن Samsung الأصلي 45W', price: 35 },
-        { id: 16, type: 'acc', name: 'Anker PowerCore 20K', price: 55 },
-        { id: 17, type: 'acc', name: 'سماعة P9 Wireless', price: 15 },
-        { id: 18, type: 'acc', name: 'Ultra Smart Watch Copy', price: 45 },
-        { id: 19, type: 'acc', name: 'لاصقة حماية سيراميك', price: 10 },
-        { id: 20, type: 'acc', name: 'كفر حماية أصلي', price: 20 }
+    // قائمة الـ 20 منتجاً الافتراضية
+    const initialData = [
+        { id: 1, type: 'phone', name: 'iPhone 15 Pro Max', price: 1199, img: 'https://m.media-amazon.com/images/I/81SigAnNnpL._AC_SL1500_.jpg' },
+        { id: 2, type: 'phone', name: 'iPhone 15 Pro', price: 999, img: 'https://m.media-amazon.com/images/I/81dT7vHbtZL._AC_SL1500_.jpg' },
+        { id: 3, type: 'phone', name: 'Samsung Galaxy S24 Ultra', price: 1250, img: 'https://m.media-amazon.com/images/I/71WjsZ8nEIL._AC_SL1500_.jpg' },
+        { id: 4, type: 'phone', name: 'Samsung A54 5G', price: 350, img: 'https://m.media-amazon.com/images/I/61fdfW89X6L._AC_SL1200_.jpg' },
+        { id: 5, type: 'phone', name: 'Redmi Note 13 Pro+', price: 420, img: 'https://m.media-amazon.com/images/I/61SOnG9O-5L._AC_SL1200_.jpg' },
+        { id: 6, type: 'phone', name: 'iPhone 14 (128GB)', price: 699, img: 'https://m.media-amazon.com/images/I/61cwywLZSuL._AC_SL1500_.jpg' },
+        { id: 7, type: 'phone', name: 'Infinix Note 30 VIP', price: 290, img: 'https://m.media-amazon.com/images/I/61vYpX0T6HL._AC_SL1200_.jpg' },
+        { id: 8, type: 'phone', name: 'Samsung S23 FE', price: 599, img: 'https://m.media-amazon.com/images/I/719S9nscS6L._AC_SL1500_.jpg' },
+        { id: 9, type: 'phone', name: 'Honor 90', price: 450, img: 'https://m.media-amazon.com/images/I/71yI02XfNfL._AC_SL1500_.jpg' },
+        { id: 10, type: 'phone', name: 'Realme 11 Pro+', price: 380, img: 'https://m.media-amazon.com/images/I/71vS-I3FfPL._AC_SL1500_.jpg' },
+        { id: 11, type: 'acc', name: 'AirPods Pro 2', price: 249, img: 'https://m.media-amazon.com/images/I/61f1YfFpU5L._AC_SL1500_.jpg' },
+        { id: 12, type: 'acc', name: 'Apple Watch Series 9', price: 399, img: 'https://m.media-amazon.com/images/I/71X8X8K7BvL._AC_SL1500_.jpg' },
+        { id: 13, type: 'acc', name: 'Samsung Buds 2 Pro', price: 180, img: 'https://m.media-amazon.com/images/I/6146u-N9vIL._AC_SL1500_.jpg' },
+        { id: 14, type: 'acc', name: 'شاحن Apple 20W أصلي', price: 25, img: 'https://m.media-amazon.com/images/I/41iWogpZ16L._AC_SL1024_.jpg' },
+        { id: 15, type: 'acc', name: 'شاحن Samsung 45W أصلي', price: 35, img: 'https://m.media-amazon.com/images/I/51fT6p9B21L._AC_SL1500_.jpg' },
+        { id: 16, type: 'acc', name: 'Anker PowerBank 20K', price: 55, img: 'https://m.media-amazon.com/images/I/61-9p8B9fPL._AC_SL1500_.jpg' },
+        { id: 17, type: 'acc', name: 'سماعة P9 Wireless', price: 15, img: 'https://m.media-amazon.com/images/I/61pBclA-8dL._AC_SL1500_.jpg' },
+        { id: 18, type: 'acc', name: 'Ultra Smart Watch Copy', price: 45, img: 'https://m.media-amazon.com/images/I/61Z7C-y17rL._AC_SL1500_.jpg' },
+        { id: 19, type: 'acc', name: 'لاصقة حماية سيراميك', price: 10, img: 'https://m.media-amazon.com/images/I/61i8S9-A7CL._AC_SL1500_.jpg' },
+        { id: 20, type: 'acc', name: 'غطاء حماية MagSafe', price: 20, img: 'https://m.media-amazon.com/images/I/61E9S2nNnfL._AC_SL1500_.jpg' }
     ];
 
-    let products = JSON.parse(localStorage.getItem('engPhoneData')) || defaultProducts;
-    let storePhone = localStorage.getItem('engStorePhone') || "218"; 
+    let products = JSON.parse(localStorage.getItem('engStoreV5')) || initialData;
+    let storePhone = localStorage.getItem('engPhoneV5') || "218";
+    let isAdminAuthenticated = false;
 
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
         document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
-        if(document.getElementById('nav-'+pageId)) document.getElementById('nav-'+pageId).classList.add('active');
         renderAll();
     }
 
-    function checkAdminAccess() {
-        isAdminAuthenticated ? showPage('admin-panel') : showPage('admin-login');
-    }
+    function checkAdminAccess() { isAdminAuthenticated ? showPage('admin-panel') : showPage('admin-login'); }
 
     function verifyAdmin() {
-        if (document.getElementById('admin-pass').value === ADMIN_PASSWORD) {
+        if(document.getElementById('admin-pass').value === ADMIN_PASSWORD) {
             isAdminAuthenticated = true;
-            document.getElementById('nav-admin').innerText = "🔓 الإدارة";
             showPage('admin-panel');
-        } else {
-            alert("خطأ في كلمة المرور");
-        }
-        document.getElementById('admin-pass').value = "";
+        } else { alert("كلمة المرور خاطئة!"); }
     }
 
-    function logoutAdmin() {
-        isAdminAuthenticated = false;
-        document.getElementById('nav-admin').innerText = "🔒 الإدارة";
-        showPage('home');
-    }
+    function logoutAdmin() { isAdminAuthenticated = false; showPage('home'); }
 
     function saveSettings() {
         storePhone = document.getElementById('store-phone').value;
-        localStorage.setItem('engStorePhone', storePhone);
+        localStorage.setItem('engPhoneV5', storePhone);
+        alert("تم حفظ رقم الواتساب");
     }
 
     function saveProduct() {
         const name = document.getElementById('p-name').value;
         const price = document.getElementById('p-price').value;
+        const img = document.getElementById('p-img').value || 'https://via.placeholder.com/200';
         const type = document.getElementById('p-type').value;
         if(!name || !price) return alert("أكمل البيانات");
-        products.push({ id: Date.now(), name, price: parseInt(price), type });
-        localStorage.setItem('engPhoneData', JSON.stringify(products));
+        
+        products.push({ id: Date.now(), name, price: parseInt(price), img, type });
+        localStorage.setItem('engStoreV5', JSON.stringify(products));
         renderAll();
+        document.getElementById('p-name').value = '';
+        document.getElementById('p-price').value = '';
     }
 
     function deleteProduct(id) {
-        products = products.filter(p => p.id !== id);
-        localStorage.setItem('engPhoneData', JSON.stringify(products));
-        renderAll();
+        if(confirm("حذف المنتج؟")) {
+            products = products.filter(p => p.id !== id);
+            localStorage.setItem('engStoreV5', JSON.stringify(products));
+            renderAll();
+        }
     }
 
     function sendOrder(name, price) {
-        const lyPrice = (price * EXCHANGE_RATE).toFixed(2);
-        const msg = `مرحباً متجر المهندس فون 👋%0Aأود طلب: ${name}%0Aالسعر بالدولار: ${price}$%0Aالسعر بالدينار: ${lyPrice} د.ل`;
+        const msg = `مرحباً متجر المهندس فون👋%0Aطلب جديد: ${name}%0Aالسعر: $${price} (${(price * LYD_RATE).toFixed(2)} د.ل)`;
         window.open(`https://wa.me/${storePhone}?text=${msg}`, '_blank');
     }
 
     function renderAll() {
         const pList = document.getElementById('phones-list');
         const aList = document.getElementById('acc-list');
-        const admInv = document.getElementById('admin-inventory-list');
+        const admInv = document.getElementById('admin-inventory');
 
-        const renderItem = (p) => `
+        const card = (p) => `
             <div class="product-card">
-                <h3>${p.name}</h3>
-                <div class="price-usd">$${p.price}</div>
-                <div class="price-lyd">يعادل: ${(p.price * EXCHANGE_RATE).toFixed(2)} د.ل</div>
-                <button class="btn btn-buy" onclick="sendOrder('${p.name}', '${p.price}')">اطلب عبر واتساب ✅</button>
+                <img src="${p.img}" class="product-img" onerror="this.src='https://via.placeholder.com/200'">
+                <div class="product-info">
+                    <h4 style="margin:0 0 10px 0; height:40px; overflow:hidden;">${p.name}</h4>
+                    <div class="price-usd">$${p.price}</div>
+                    <div class="price-lyd">${(p.price * LYD_RATE).toFixed(2)} د.ل</div>
+                    <button class="btn btn-buy" onclick="sendOrder('${p.name}', ${p.price})">اطلب واتساب ✅</button>
+                </div>
             </div>`;
 
-        pList.innerHTML = products.filter(p => p.type === 'phone').map(renderItem).join('');
-        aList.innerHTML = products.filter(p => p.type === 'acc').map(renderItem).join('');
+        pList.innerHTML = products.filter(p => p.type === 'phone').map(card).join('');
+        aList.innerHTML = products.filter(p => p.type === 'acc').map(card).join('');
 
-        if(admInv) {
+        if(isAdminAuthenticated && admInv) {
             document.getElementById('store-phone').value = storePhone;
             admInv.innerHTML = products.map(p => `
-                <div style="background:#0f172a; padding:15px; margin-bottom:8px; border-radius:10px; display:flex; justify-content:space-between;">
-                    <span>${p.name} ($${p.price})</span>
-                    <button onclick="deleteProduct(${p.id})" style="color:var(--danger); background:none; border:none; cursor:pointer;">حذف</button>
+                <div style="background:#0f172a; padding:10px; margin-bottom:5px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-size:0.8em">${p.name}</span>
+                    <button onclick="deleteProduct(${p.id})" style="color:var(--danger); background:none; border:none; cursor:pointer;">❌</button>
                 </div>
             `).join('');
         }
